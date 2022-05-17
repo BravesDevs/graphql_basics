@@ -1,0 +1,24 @@
+type User {
+    id: Int!
+    first_name: String!
+    last_name: String!
+    email: String!
+  }
+
+  type Query {
+    hello: String!
+    randomNumber: Int!
+    # This query is going to return all the users in our array
+    # Since our "database" is an array containing objects, we need to create a "User" type
+    # Brackets around the type indicates the query is returning an array
+    queryUsers: [User]!
+  }
+
+  # Mutations must be in their own type
+  type Mutation {
+    # We are creating a mutation called "addUser" that takes in 3 arguments
+    # These arguments will be available to our resolver, which will push the new user to the "users" array
+    # Notice that this mutation will return a single User, which will be the one that was created
+    addUser(first_name:String!, last_name:String!, email:String!): User!
+  }
+

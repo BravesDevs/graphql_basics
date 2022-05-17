@@ -1,0 +1,20 @@
+{
+  "name": "apollo_graphql",
+  "version": "1.0.0",
+  "description": "This project demonstrates the graphql implementation with the Apollo Server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apollo",
+    "graphql",
+    "server"
+  ],
+  "author": "ALexei",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.7.0",
+    "graphql": "^16.5.0"
+  }
+}
