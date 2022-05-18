@@ -1,9 +1,9 @@
 //Importing modules and dependencies
 const { ApolloServer, gql } = require("apollo-server");
-const data = require('./MOCK_DATA.json');
+const data = require('./data/MOCK_DATA.json');
 const { readFileSync } = require('fs');
 const jwt = require('jsonwebtoken')
-const typeDefs = readFileSync(require.resolve('./schemas.graphql')).toString('utf-8')
+const typeDefs = readFileSync(require.resolve('./schemas/schemas.graphql')).toString('utf-8')
 
 const resolvers = {
     // The name of the resolver must match the name of the query in the typeDefs
