@@ -1,7 +1,8 @@
 //Importing modules and dependencies
 const { ApolloServer, gql } = require("apollo-server");
 const data = require('./MOCK_DATA.json');
-const { readFileSync } = require('fs')
+const { readFileSync } = require('fs');
+const jwt = require('jsonwebtoken')
 const typeDefs = readFileSync(require.resolve('./schemas.graphql')).toString('utf-8')
 
 const resolvers = {
@@ -10,7 +11,21 @@ const resolvers = {
         // When the hello query is invoked "Hello world" should be returned
         hello: () => "Hello world!",
         randomNumber: () => Math.round(Math.random() * 10),
-        queryUsers: () => data
+        queryUsers: () => data,
+        queryUserById: (parent, args) => {
+            return data.find(x => x.id == args.id)
+        },
+        queryLogin: (parent, args) => {
+            let obj = data.find(x => x.email == args.email)
+            if (obj) {
+                if (obj.password == args.password) {
+                    let token = jwt.sign({ id: obj.id, email: args.email },'jwtsecretkeyishere')
+                    return { ok: true, message: "Login Success", token }
+                }
+            }
+            return { ok: false, message: "Login Failure" }
+        }
+
     },
 
     Mutation: {
