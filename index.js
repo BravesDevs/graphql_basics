@@ -31,7 +31,7 @@ const resolvers = {
     Mutation: {
         // Once again notice the name of the resolver matches what we defined in our typeDefs
         // The first argument to any resolver is the parent, which is not important to us here
-        // The second argument, args, is an object containing all the arguments passed to the resolver
+        // The second argument, args, is an object containing all the arguments passed to the resolver.
         addUser: (parent, args) => {
             if (!data.find(x => x.email == args.email)) {
                 let obj = {
@@ -42,16 +42,7 @@ const resolvers = {
                 return { ok: true, message: "Registration Success" } // Returns the arguments provided, this is the new user we just added
             }
             return { ok: true, message: "Registration Failed" }
-        },
-        // registerUser: (parent, args) => {
-        //     let obj = data.find(x => x.email == args.email)
-        //     if (!obj) {
-        //         let object = { id: data.length + 1, first_name: args.first_name, last_name: args.last_name, email: args.email, gender: args.gender }
-        //         data.push(object)
-        //         return { ok: true, message: "Registration Success", token }
-        //     }
-        //     return { ok: false, message: "User Exists" }
-        // }
+        }
     }
 };
 
