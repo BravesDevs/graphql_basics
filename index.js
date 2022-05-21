@@ -19,7 +19,7 @@ const resolvers = {
             let obj = data.find(x => x.email == args.email)
             if (obj) {
                 if (obj.password == args.password) {
-                    let token = jwt.sign({ id: obj.id, email: args.email },'jwtsecretkeyishere')
+                    let token = jwt.sign({ id: obj.id, email: args.email }, 'jwtsecretkeyishere')
                     return { ok: true, message: "Login Success", token }
                 }
             }
@@ -33,10 +33,25 @@ const resolvers = {
         // The first argument to any resolver is the parent, which is not important to us here
         // The second argument, args, is an object containing all the arguments passed to the resolver
         addUser: (parent, args) => {
-            let obj = { id: data.length + 1, first_name: args.first_name, last_name: args.last_name, email: args.email }
-            data.push(obj); // Push the new user to the users array
-            return obj; // Returns the arguments provided, this is the new user we just added
+            if (!data.find(x => x.email == args.email)) {
+                let obj = {
+                    id: data.length + 1, first_name: args.first_name, last_name: args.last_name,
+                    email: args.email, gender: args.gender, password: args.password
+                }
+                data.push(obj); // Push the new user to the users array
+                return { ok: true, message: "Registration Success" } // Returns the arguments provided, this is the new user we just added
+            }
+            return { ok: true, message: "Registration Failed" }
         },
+        // registerUser: (parent, args) => {
+        //     let obj = data.find(x => x.email == args.email)
+        //     if (!obj) {
+        //         let object = { id: data.length + 1, first_name: args.first_name, last_name: args.last_name, email: args.email, gender: args.gender }
+        //         data.push(object)
+        //         return { ok: true, message: "Registration Success", token }
+        //     }
+        //     return { ok: false, message: "User Exists" }
+        // }
     }
 };
 
