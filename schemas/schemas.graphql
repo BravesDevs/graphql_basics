@@ -12,6 +12,12 @@ type loginStatus {
   token: String
 }
 
+type getUserById {
+  ok: Boolean!
+  message: String
+  data: User
+}
+
   type Query {
     hello: String!
     randomNumber: Int!
@@ -19,7 +25,7 @@ type loginStatus {
     # Since our "database" is an array containing objects, we need to create a "User" type
     # Brackets around the type indicates the query is returning an array
     queryUsers: [User]!
-    queryUserById(id:Int!):User!
+    queryUserById(id:Int!):getUserById!
     queryLogin(email:String!, password:String!): loginStatus!
   }
 

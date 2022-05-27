@@ -13,7 +13,22 @@ const resolvers = {
         randomNumber: () => Math.round(Math.random() * 10),
         queryUsers: () => data,
         queryUserById: (parent, args) => {
-            return data.find(x => x.id == args.id)
+            let obj = data.find(x => x.id == args.id);
+            if (obj) {
+                return { "ok": true, "data": obj }
+            }
+            return {
+                "ok": false,
+                "data": {
+                    "id": 0,
+                    "first_name": "NA",
+                    "last_name": "NA",
+                    "email": "NA",
+                    "gender": "NA",
+                    "password": "NA"
+                },
+                "message": "Data not available"
+            }
         },
         queryLogin: (parent, args) => {
             let obj = data.find(x => x.email == args.email)
