@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "apollo_graphql",
   "version": "1.0.0",
   "description": "This project demonstrates the graphql implementation with the Apollo Server.",
@@ -14,6 +15,7 @@
   "author": "ALexei",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^3.14.0",
     "apollo-server": "^3.7.0",
     "graphql": "^16.5.0",
     "jsonwebtoken": "^8.5.1"

@@ -1,17 +1,22 @@
 //Importing modules and dependencies
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const { ApolloServer, gql } = require("apollo-server");
 const data = require('./data/MOCK_DATA.json');
 const { readFileSync } = require('fs');
 const jwt = require('jsonwebtoken')
-const typeDefs = readFileSync(require.resolve('./schemas/schemas.graphql')).toString('utf-8')
-
+const typeDefs = readFileSync(require.resolve('./schemas/schemas.graphql')).toString('utf-8');
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 const resolvers = {
     // The name of the resolver must match the name of the query in the typeDefs
     Query: {
         // When the hello query is invoked "Hello world" should be returned
         hello: () => "Hello world!",
         randomNumber: () => Math.round(Math.random() * 10),
-        queryUsers: () => data,
+        queryUsers: async () => {
+            return await prisma.user.findMany()
+        },
         queryUserById: (parent, args) => {
             let obj = data.find(x => x.id == args.id);
             if (obj) {
