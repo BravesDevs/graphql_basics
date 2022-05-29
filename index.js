@@ -13,28 +13,25 @@ const resolvers = {
     Query: {
         // When the hello query is invoked "Hello world" should be returned
         hello: () => "Hello world!",
+
+        //Function to generate the random number.
         randomNumber: () => Math.round(Math.random() * 10),
+
+        //Function to query all users.
         queryUsers: async () => {
             return await prisma.user.findMany()
         },
-        queryUserById: (parent, args) => {
-            let obj = data.find(x => x.id == args.id);
-            if (obj) {
-                return { "ok": true, "data": obj }
-            }
-            return {
-                "ok": false,
-                "data": {
-                    "id": 0,
-                    "first_name": "NA",
-                    "last_name": "NA",
-                    "email": "NA",
-                    "gender": "NA",
-                    "password": "NA"
-                },
-                "message": "Data not available"
-            }
+
+        //Function to get the user by ID.
+        queryUserById: async (parent, args) => {
+            return await prisma.user.findUnique({
+                where: {
+                    id: args.id
+                }
+            })
         },
+
+        //Function to Login.
         queryLogin: (parent, args) => {
             let obj = data.find(x => x.email == args.email)
             if (obj) {
